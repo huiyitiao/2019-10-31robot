@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>聊天机器人</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <p class="name">小渡机器人</p>
+      <div class="content-box">
+        <div class="mine">
+          <div class="avitor"></div>
+          <div class="text">今天天气怎么样？</div>
+        </div>
+        <div class="robot">
+          <div class="avitor"></div>
+          <div class="text">西北风3-4级 最低气温零下4度, 最高气温5度</div>
+        </div>
+      </div>
+      <div class="input-content">
+        <input type="text" class="inp" id="inp" />
+        <input type="button" class="btn" id="submit" value="发送" />
+      </div>
+    </div>
+    <!-- <script>
+        function a(res) {
+            console.log(res)
+        }
+    </script>
+    <script src="http://localhost:3000/data?cb=a">
+        a([{}])
+        
+    </script> -->
+    <script src="./jquery-3.3.1.js"></script>
+    <script src="./index.js"></script>
+    <script>
+      /**
+       * 1. 了解jquery中的ajax
+       *      参数： options 是一个对象 请求的配置项
+       *      一个网络请求当中必须要有的： 请求方式，请求地址，请求数据，还需要有响应的数据
+       *      jquery中的ajax是把 原生的ajax 和 jsonp 封装在一起了
+       *
+       * 2. 实现聊几天机器人的效果
+       *    接口： http://temp.duyiedu.com/api/chat  请求参数text: '你好'
+       */
+      $.ajax({
+        // 请求方式
+        type: "GET",
+        // 请求地址
+        url: "http://localhost:3000/data",
+        // 请求数据 （参数）
+        data: {
+          page: 1
+          // appkey: 'DuYimeiqi_1564986205860'
+        },
+        // 发出请求之前执行的函数  请求前的拦截
+        beforeSend: function(xhr, request) {
+          console.log(request);
+          request.url += "&size=1";
+        },
+        // 响应的拦截
+        dataFilter: function(data, type) {
+          console.log(data, type);
+          return ;
+        },
+        // 编码类型 指的是 前端传递到接口的过程当中数据格式
+        // contentType: '',
+        // 你希望得到的数据类型  json代表的是json对象的格式
+        dataType: "json",
+        // 成功的回调函数
+        success: function(res) {
+          console.log(res);
+        },
+        // 错误的回调函数
+        error: function(err, msg) {
+          console.log(err, msg);
+        }
+      });
+
+    //   // 同源策略： 浏览器提出的一种安全机制
+    //   // 同源：  协议 域名 端口号 都必须相同的
+    //   // 跨域：  不同源的地址之间进行数据交互了
+    //   //
+    //   // jsonp 属于一种跨域方式  json padding 原理是script的src属性是不受同源策略的限制的
+    //   //      jsonp跨域方式的要求 是服务端配合 将传过去的函数名称拼接到地址里面再返回
+    //   //      jsonp 的请求方式是get类型的
+    </script>
+  </body>
+</html>
